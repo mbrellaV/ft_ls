@@ -20,13 +20,13 @@ t_files		*ft_create_file(char *file)
 	return (node);
 }
 
-void		ft_node_push_forward(char *file, t_files *node)
+t_files		*ft_node_push_forward(char *file, t_files *node)
 {
 	if (!node)
 	{
 		ft_create_file(file);
-		return ;
+		return (NULL);
 	}
 	node->next = ft_create_file(file);
-	return ;
+	return (node->next);
 }

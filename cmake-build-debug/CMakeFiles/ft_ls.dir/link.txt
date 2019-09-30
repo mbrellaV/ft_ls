@@ -1,0 +1,1 @@
+/usr/bin/cc -g  -Wl,--enable-auto-import CMakeFiles/ft_ls.dir/main.c.o CMakeFiles/ft_ls.dir/lists.c.o CMakeFiles/ft_ls.dir/sort_files.c.o CMakeFiles/ft_ls.dir/display_files.c.o  -o ft_ls.exe -Wl,--out-implib,libft_ls.dll.a -Wl,--major-image-version,0,--minor-image-version,0 

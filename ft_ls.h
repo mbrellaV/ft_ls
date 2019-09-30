@@ -9,7 +9,6 @@
 #include <stdio.h>
 #include <dirent.h>
 #include <stdlib.h>
-#include "libft/libft.h"
 
 typedef struct 		s_args
 {
@@ -21,12 +20,14 @@ typedef struct 		s_args
 typedef struct		s_files
 {
 	char			*name;
-	struct t_files	*next;
+	struct s_files	*next;
 }					t_files;
 
 
 
-void		ft_node_push_forward(char *file, t_files *node);
+t_files		*ft_node_push_forward(char *file, t_files *node);
 t_files		*ft_create_file(char *file);
+void		ft_display_files(t_files *node);
+void	ft_sort_files(t_files *node);
 
 #endif //FT_LS_FT_LS_H

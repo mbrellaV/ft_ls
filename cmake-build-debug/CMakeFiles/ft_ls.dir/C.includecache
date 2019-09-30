@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/cygdrive/d/ft_ls/ft_ls.h
+stdio.h
+-
+dirent.h
+-
+stdlib.h
+-
+
+/cygdrive/d/ft_ls/main.c
+ft_ls.h
+/cygdrive/d/ft_ls/ft_ls.h
+
