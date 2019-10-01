@@ -12,41 +12,102 @@
 
 #include "ft_ls.h"
 
+void	ft_print_usage()
+{
+	printf("usage: ft_ls [flags] dir");
+	exit(0);
+}
 
 
-int main (int argc, char *argv[]) {
+
+int		ft_parse_flags(char *str, t_args *flags)
+{
+	int		i;
+
+	i = 0;
+	str++;
+	while (*str)
+	{
+		i = 0;
+		while (i < COUNT_FLAGS)
+		{
+			if (*str == flags->flags[i])
+				flags->isactivated_flags[i] = 1;
+			i++;
+		}
+		str++;
+	}
+	i = 0;
+	while (i++ < COUNT_FLAGS)
+		if (flags->isactivated_flags[i] == 1)
+			return (1);
+	return (0);
+}
+
+void	ft_show_dop(char *name, t_args *flags)
+{
+	if (flags->isactivated_flags[1] == 0)
+	{
+		ft_show_dir(name, flags);
+		exit(0);
+	}
+}
+
+int main (int argc, char **argv)
+{
+	char	*dir_name;
+	int		i;
+	t_args	*flags;
+
+	i = 1;
+	flags = ft_create_args(flags);
+	if (argc < 3)
+	{
+		if (argc == 1)
+			ft_show_dir("..", flags);
+		if (argc == 2)
+			ft_show_dir(argv[1], flags);
+		exit(0);
+	}
+	if (argv[argc - 1][0] == '-')
+		ft_print_usage();
+	else
+		dir_name = argv[argc - 1];
+	while (i < argc - 1)
+	{
+		if (argv[i][0] == '-')
+			ft_parse_flags(argv[i], flags);
+		else
+			ft_print_usage();
+		i++;
+	}
+	ft_show_dop(dir_name, flags);
+	return (0);
+}
+
+int 	ft_show_dir(char *dir_name, t_args *flags)
+{
 	struct dirent *pDirent;
 	DIR *pDir;
 	t_files *tmp;
 	t_files *dop;
 
-	if (argc < 2)
-		argv[1] = ".";
-	pDir = opendir (argv[1]);
-	if (pDir == NULL) {
-		printf ("Cannot open directory '%s'\n", argv[1]);
+	pDir = opendir (dir_name);
+	if (pDir == NULL)
+	{
+		printf ("Cannot open directory '%s'\n", dir_name);
 		return 1;
 	}
 	pDirent = readdir(pDir);
-	printf("%s", pDirent->d_name);
-	tmp = ft_create_file(pDirent->d_name);
+	tmp = ft_create_file(pDirent->d_name, tmp);
 	dop = tmp;
-	printf("f: %s ", dop->name);
 	while ((pDirent = readdir(pDir)) != NULL)
 	{
-		tmp = ft_node_push_forward(pDirent->d_name, tmp);
-		printf("%s ", tmp->name);
+		tmp->next = ft_create_file(pDirent->d_name, tmp->next);
+		tmp = tmp->next;
 	}
-	printf(" str: %s ", dop->name);
-	while (dop)
-	{
-		//if (dop->name[0] != '.')
-		printf("%s\t\t", dop->name);
-		dop = dop->next;
-	}
-	//ft_sort_files(dop);
-	//ft_display_files(dop);
+	ft_sort_files(dop, flags);
+	ft_display_files(dop, flags);
 	printf("\n");
 	closedir (pDir);
-	return 0;
 }

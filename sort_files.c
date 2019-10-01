@@ -20,10 +20,9 @@ int		ft_strcmp(char *s1, char *s2)
 		s2++;
 	}
 	return (*s1 - *s2);
-
 }
 
-void	ft_sort_files(t_files *node)
+void	ft_sort_files(t_files *node, t_args *flags)
 {
 	t_files	*tmp;
 	int		i;
@@ -36,16 +35,22 @@ void	ft_sort_files(t_files *node)
 	while (node)
 	{
 		i++;
-		printf("%s", node->name);
+		//printf(" %s ", node->name);
 		node = node->next;
 	}
 	while (cn < i)
 	{
 		node = tmp;
-		while (node)
+		while (node->next)
 		{
-			printf("%s", node->name);
-			if (ft_strcmp(node->name, node->next->name) < 0)
+			//printf(" %s ", node->name);
+			if (flags->isactivated_flags[0] && ft_strcmp(node->name, node->next->name) < 0)
+			{
+				dopstr = node->name;
+				node->name = node->next->name;
+				node->next->name = dopstr;
+			}
+			if (flags->isactivated_flags[0] == 0 && ft_strcmp(node->name, node->next->name) >= 0)
 			{
 				dopstr = node->name;
 				node->name = node->next->name;
