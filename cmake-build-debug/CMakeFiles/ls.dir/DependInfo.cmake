@@ -4,10 +4,10 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/Users/mbrella/projects/ls/display_files.c" "/Users/mbrella/projects/ls/cmake-build-debug/CMakeFiles/ls.dir/display_files.c.o"
-  "/Users/mbrella/projects/ls/lists.c" "/Users/mbrella/projects/ls/cmake-build-debug/CMakeFiles/ls.dir/lists.c.o"
-  "/Users/mbrella/projects/ls/main.c" "/Users/mbrella/projects/ls/cmake-build-debug/CMakeFiles/ls.dir/main.c.o"
-  "/Users/mbrella/projects/ls/sort_files.c" "/Users/mbrella/projects/ls/cmake-build-debug/CMakeFiles/ls.dir/sort_files.c.o"
+  "/Users/mbrella/projects/ls/src/display_files.c" "/Users/mbrella/projects/ls/cmake-build-debug/CMakeFiles/ls.dir/src/display_files.c.o"
+  "/Users/mbrella/projects/ls/src/lists.c" "/Users/mbrella/projects/ls/cmake-build-debug/CMakeFiles/ls.dir/src/lists.c.o"
+  "/Users/mbrella/projects/ls/src/main.c" "/Users/mbrella/projects/ls/cmake-build-debug/CMakeFiles/ls.dir/src/main.c.o"
+  "/Users/mbrella/projects/ls/src/sort_files.c" "/Users/mbrella/projects/ls/cmake-build-debug/CMakeFiles/ls.dir/src/sort_files.c.o"
   )
 set(CMAKE_C_COMPILER_ID "AppleClang")
 

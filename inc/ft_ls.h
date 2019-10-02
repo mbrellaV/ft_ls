@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
-#include "libft/libft.h"
+#include "../libft/libft.h"
 #include "pwd.h"
 #include "grp.h"
 #include "time.h"
@@ -40,10 +40,10 @@ typedef struct		s_files
 }					t_files;
 
 
-void				ft_show_dir(char	*dir_name, t_args *flags);
+t_files				*ft_show_dir(char	*dir_name, t_args *flags);
 t_args				*ft_create_args(t_args *node);
 t_files				*ft_node_push_forward(char *file, t_files *node);
-t_files				*ft_create_file(char *file, t_files *node);
+t_files				*ft_create_file(char *file, t_files *node, char *full_name);
 void				ft_display_files(t_files *node, t_args *flags);
 void				ft_sort_files(t_files *node, t_args *flags);
 

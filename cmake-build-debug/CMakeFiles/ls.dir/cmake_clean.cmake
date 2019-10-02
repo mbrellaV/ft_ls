@@ -1,8 +1,8 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/ls.dir/main.c.o"
-  "CMakeFiles/ls.dir/lists.c.o"
-  "CMakeFiles/ls.dir/sort_files.c.o"
-  "CMakeFiles/ls.dir/display_files.c.o"
+  "CMakeFiles/ls.dir/src/main.c.o"
+  "CMakeFiles/ls.dir/src/lists.c.o"
+  "CMakeFiles/ls.dir/src/sort_files.c.o"
+  "CMakeFiles/ls.dir/src/display_files.c.o"
   "ls.pdb"
   "ls"
 )

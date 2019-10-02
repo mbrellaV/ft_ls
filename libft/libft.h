@@ -24,6 +24,7 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
+void				ft_printf(const char *fmt, ...);
 int					ft_isdelim(char c, char delim);
 int					ft_str_is_lowercase(char *s);
 int					ft_str_is_printable(char *s);

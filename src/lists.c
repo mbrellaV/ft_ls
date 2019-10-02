@@ -11,18 +11,20 @@
 /* ************************************************************************** */
 
 #include <sys/stat.h>
-#include "ft_ls.h"
+#include "../inc/ft_ls.h"
 
-t_files		*ft_create_file(char *file, t_files *node)
+t_files		*ft_create_file(char *file, t_files *node, char *full_name)
 {
 	struct stat *buf;
 
 	node = (t_files*)malloc(sizeof(t_files));
 	buf = (struct stat*)malloc(sizeof(struct stat));
 	node->next = NULL;
-	stat(file, buf);
+
 	node->name = (char*)malloc(strlen(file));
 	ft_strlcat(node->name, file, strlen(file) + 1);
+	//printf(" str: %s ", full_name);
+	stat(full_name, buf);
 	node->size = buf->st_size;
 	node->num_links = buf->st_nlink;
 	node->user = buf->st_uid;
@@ -53,15 +55,4 @@ t_args		*ft_create_args(t_args *node)
 	while (i++ < COUNT_FLAGS)
 		node->isactivated_flags[i] = 0;
 	return (node);
-}
-
-t_files		*ft_node_push_forward(char *file, t_files *node)
-{
-	if (!node)
-	{
-		//ft_create_file(file);
-		return (NULL);
-	}
-	node->next = ft_create_file(file, node);
-	return (node->next);
 }

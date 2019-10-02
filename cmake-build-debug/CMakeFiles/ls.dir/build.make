@@ -57,74 +57,74 @@ include CMakeFiles/ls.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/ls.dir/flags.make
 
-CMakeFiles/ls.dir/main.c.o: CMakeFiles/ls.dir/flags.make
-CMakeFiles/ls.dir/main.c.o: ../main.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/mbrella/projects/ls/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/ls.dir/main.c.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/ls.dir/main.c.o   -c /Users/mbrella/projects/ls/main.c
+CMakeFiles/ls.dir/src/main.c.o: CMakeFiles/ls.dir/flags.make
+CMakeFiles/ls.dir/src/main.c.o: ../src/main.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/mbrella/projects/ls/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/ls.dir/src/main.c.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/ls.dir/src/main.c.o   -c /Users/mbrella/projects/ls/src/main.c
 
-CMakeFiles/ls.dir/main.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ls.dir/main.c.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/mbrella/projects/ls/main.c > CMakeFiles/ls.dir/main.c.i
+CMakeFiles/ls.dir/src/main.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ls.dir/src/main.c.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/mbrella/projects/ls/src/main.c > CMakeFiles/ls.dir/src/main.c.i
 
-CMakeFiles/ls.dir/main.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ls.dir/main.c.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/mbrella/projects/ls/main.c -o CMakeFiles/ls.dir/main.c.s
+CMakeFiles/ls.dir/src/main.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ls.dir/src/main.c.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/mbrella/projects/ls/src/main.c -o CMakeFiles/ls.dir/src/main.c.s
 
-CMakeFiles/ls.dir/lists.c.o: CMakeFiles/ls.dir/flags.make
-CMakeFiles/ls.dir/lists.c.o: ../lists.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/mbrella/projects/ls/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/ls.dir/lists.c.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/ls.dir/lists.c.o   -c /Users/mbrella/projects/ls/lists.c
+CMakeFiles/ls.dir/src/lists.c.o: CMakeFiles/ls.dir/flags.make
+CMakeFiles/ls.dir/src/lists.c.o: ../src/lists.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/mbrella/projects/ls/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/ls.dir/src/lists.c.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/ls.dir/src/lists.c.o   -c /Users/mbrella/projects/ls/src/lists.c
 
-CMakeFiles/ls.dir/lists.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ls.dir/lists.c.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/mbrella/projects/ls/lists.c > CMakeFiles/ls.dir/lists.c.i
+CMakeFiles/ls.dir/src/lists.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ls.dir/src/lists.c.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/mbrella/projects/ls/src/lists.c > CMakeFiles/ls.dir/src/lists.c.i
 
-CMakeFiles/ls.dir/lists.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ls.dir/lists.c.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/mbrella/projects/ls/lists.c -o CMakeFiles/ls.dir/lists.c.s
+CMakeFiles/ls.dir/src/lists.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ls.dir/src/lists.c.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/mbrella/projects/ls/src/lists.c -o CMakeFiles/ls.dir/src/lists.c.s
 
-CMakeFiles/ls.dir/sort_files.c.o: CMakeFiles/ls.dir/flags.make
-CMakeFiles/ls.dir/sort_files.c.o: ../sort_files.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/mbrella/projects/ls/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/ls.dir/sort_files.c.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/ls.dir/sort_files.c.o   -c /Users/mbrella/projects/ls/sort_files.c
+CMakeFiles/ls.dir/src/sort_files.c.o: CMakeFiles/ls.dir/flags.make
+CMakeFiles/ls.dir/src/sort_files.c.o: ../src/sort_files.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/mbrella/projects/ls/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/ls.dir/src/sort_files.c.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/ls.dir/src/sort_files.c.o   -c /Users/mbrella/projects/ls/src/sort_files.c
 
-CMakeFiles/ls.dir/sort_files.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ls.dir/sort_files.c.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/mbrella/projects/ls/sort_files.c > CMakeFiles/ls.dir/sort_files.c.i
+CMakeFiles/ls.dir/src/sort_files.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ls.dir/src/sort_files.c.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/mbrella/projects/ls/src/sort_files.c > CMakeFiles/ls.dir/src/sort_files.c.i
 
-CMakeFiles/ls.dir/sort_files.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ls.dir/sort_files.c.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/mbrella/projects/ls/sort_files.c -o CMakeFiles/ls.dir/sort_files.c.s
+CMakeFiles/ls.dir/src/sort_files.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ls.dir/src/sort_files.c.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/mbrella/projects/ls/src/sort_files.c -o CMakeFiles/ls.dir/src/sort_files.c.s
 
-CMakeFiles/ls.dir/display_files.c.o: CMakeFiles/ls.dir/flags.make
-CMakeFiles/ls.dir/display_files.c.o: ../display_files.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/mbrella/projects/ls/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/ls.dir/display_files.c.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/ls.dir/display_files.c.o   -c /Users/mbrella/projects/ls/display_files.c
+CMakeFiles/ls.dir/src/display_files.c.o: CMakeFiles/ls.dir/flags.make
+CMakeFiles/ls.dir/src/display_files.c.o: ../src/display_files.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/mbrella/projects/ls/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/ls.dir/src/display_files.c.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/ls.dir/src/display_files.c.o   -c /Users/mbrella/projects/ls/src/display_files.c
 
-CMakeFiles/ls.dir/display_files.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ls.dir/display_files.c.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/mbrella/projects/ls/display_files.c > CMakeFiles/ls.dir/display_files.c.i
+CMakeFiles/ls.dir/src/display_files.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ls.dir/src/display_files.c.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/mbrella/projects/ls/src/display_files.c > CMakeFiles/ls.dir/src/display_files.c.i
 
-CMakeFiles/ls.dir/display_files.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ls.dir/display_files.c.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/mbrella/projects/ls/display_files.c -o CMakeFiles/ls.dir/display_files.c.s
+CMakeFiles/ls.dir/src/display_files.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ls.dir/src/display_files.c.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/mbrella/projects/ls/src/display_files.c -o CMakeFiles/ls.dir/src/display_files.c.s
 
 # Object files for target ls
 ls_OBJECTS = \
-"CMakeFiles/ls.dir/main.c.o" \
-"CMakeFiles/ls.dir/lists.c.o" \
-"CMakeFiles/ls.dir/sort_files.c.o" \
-"CMakeFiles/ls.dir/display_files.c.o"
+"CMakeFiles/ls.dir/src/main.c.o" \
+"CMakeFiles/ls.dir/src/lists.c.o" \
+"CMakeFiles/ls.dir/src/sort_files.c.o" \
+"CMakeFiles/ls.dir/src/display_files.c.o"
 
 # External object files for target ls
 ls_EXTERNAL_OBJECTS =
 
-ls: CMakeFiles/ls.dir/main.c.o
-ls: CMakeFiles/ls.dir/lists.c.o
-ls: CMakeFiles/ls.dir/sort_files.c.o
-ls: CMakeFiles/ls.dir/display_files.c.o
+ls: CMakeFiles/ls.dir/src/main.c.o
+ls: CMakeFiles/ls.dir/src/lists.c.o
+ls: CMakeFiles/ls.dir/src/sort_files.c.o
+ls: CMakeFiles/ls.dir/src/display_files.c.o
 ls: CMakeFiles/ls.dir/build.make
-ls: ../libft.a
+ls: ../libft/libft.a
 ls: CMakeFiles/ls.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/mbrella/projects/ls/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking C executable ls"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/ls.dir/link.txt --verbose=$(VERBOSE)
