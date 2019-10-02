@@ -16,18 +16,19 @@
 t_files		*ft_create_file(char *file, t_files *node)
 {
 	struct stat *buf;
+
 	node = (t_files*)malloc(sizeof(t_files));
 	buf = (struct stat*)malloc(sizeof(struct stat));
 	node->next = NULL;
 	stat(file, buf);
-	//node->name = (char*)malloc(strlen(file));
-	strlcat(node->name, file, strlen(file));
+	node->name = (char*)malloc(strlen(file));
+	ft_strlcat(node->name, file, strlen(file) + 1);
 	node->size = buf->st_size;
 	node->num_links = buf->st_nlink;
 	node->user = buf->st_uid;
 	node->group = buf->st_gid;
-	node->type = S_ISDIR(buf->st_mode) ? "d" : (S_ISLNK(buf->st_mode) ? "l" : '-');
-	node->permissions = "----------";
+	node->type = S_ISDIR(buf->st_mode) ? 'd' : (S_ISLNK(buf->st_mode) ? 'l' : '-');
+	node->permissions = (char*)malloc(10);
 	node->permissions[0] = node->type;
 	node->permissions[1] = (buf->st_mode & S_IRUSR) ? 'r' : '-';
 	node->permissions[2] = (buf->st_mode & S_IWUSR) ? 'w' : '-';
@@ -38,6 +39,7 @@ t_files		*ft_create_file(char *file, t_files *node)
 	node->permissions[7] = (buf->st_mode & S_IROTH) ? 'r' : '-';
 	node->permissions[8] = (buf->st_mode & S_IWOTH) ? 'w' : '-';
 	node->permissions[9] = (buf->st_mode & S_IXOTH) ? 'x' : '-';
+	node->time = buf->st_mtimespec.tv_sec;
 	return (node);
 }
 

@@ -18,7 +18,10 @@ void	ft_print_usage()
 	exit(0);
 }
 
-
+void	ft_error(int error)
+{
+	exit(0);
+}
 
 int		ft_parse_flags(char *str, t_args *flags)
 {
@@ -51,6 +54,10 @@ void	ft_show_dop(char *name, t_args *flags)
 		ft_show_dir(name, flags);
 		exit(0);
 	}
+	if (flags->isactivated_flags[1] == 1)
+	{
+		printf("%s", name);
+	}
 }
 
 int main (int argc, char **argv)
@@ -60,17 +67,15 @@ int main (int argc, char **argv)
 	t_args	*flags;
 
 	i = 1;
+	dir_name = ".";
 	flags = ft_create_args(flags);
-	if (argc < 3)
+	if (argc == 1)
 	{
-		if (argc == 1)
-			ft_show_dir("..", flags);
-		if (argc == 2)
-			ft_show_dir(argv[1], flags);
+		ft_show_dir(".", flags);
 		exit(0);
 	}
 	if (argv[argc - 1][0] == '-')
-		ft_print_usage();
+		ft_parse_flags(argv[argc - 1], flags);
 	else
 		dir_name = argv[argc - 1];
 	while (i < argc - 1)
@@ -85,7 +90,7 @@ int main (int argc, char **argv)
 	return (0);
 }
 
-int 	ft_show_dir(char *dir_name, t_args *flags)
+void	ft_show_dir(char *dir_name, t_args *flags)
 {
 	struct dirent *pDirent;
 	DIR *pDir;
@@ -94,10 +99,7 @@ int 	ft_show_dir(char *dir_name, t_args *flags)
 
 	pDir = opendir (dir_name);
 	if (pDir == NULL)
-	{
-		printf ("Cannot open directory '%s'\n", dir_name);
-		return 1;
-	}
+		ft_error(2);
 	pDirent = readdir(pDir);
 	tmp = ft_create_file(pDirent->d_name, tmp);
 	dop = tmp;

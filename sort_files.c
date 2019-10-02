@@ -12,22 +12,13 @@
 
 #include "ft_ls.h"
 
-int		ft_strcmp(char *s1, char *s2)
-{
-	while (*s1 && *s2 && *s1 == *s2)
-	{
-		s1++;
-		s2++;
-	}
-	return (*s1 - *s2);
-}
-
 void	ft_sort_files(t_files *node, t_args *flags)
 {
 	t_files	*tmp;
 	int		i;
 	int		cn;
-	char	*dopstr;
+	t_files *doptmp;
+	void	*dopspace;
 
 	i = 0;
 	cn = 0;
@@ -38,6 +29,8 @@ void	ft_sort_files(t_files *node, t_args *flags)
 		//printf(" %s ", node->name);
 		node = node->next;
 	}
+	dopspace = (void*)malloc(sizeof(t_files));
+	//printf(" %lu ", sizeof(t_files*));
 	while (cn < i)
 	{
 		node = tmp;
@@ -46,16 +39,17 @@ void	ft_sort_files(t_files *node, t_args *flags)
 			//printf(" %s ", node->name);
 			if (flags->isactivated_flags[0] && ft_strcmp(node->name, node->next->name) < 0)
 			{
-				dopstr = node->name;
-				node->name = node->next->name;
-				node->next->name = dopstr;
+				ft_memcpy(dopspace, node->next, sizeof(t_files) - 8);
+				ft_memcpy(node->next, node, sizeof(t_files) - 8);
+				ft_memcpy(node, dopspace, sizeof(t_files) - 8);
 			}
 			if (flags->isactivated_flags[0] == 0 && ft_strcmp(node->name, node->next->name) >= 0)
 			{
-				dopstr = node->name;
-				node->name = node->next->name;
-				node->next->name = dopstr;
+				ft_memcpy(dopspace, node->next, sizeof(t_files) - 8);
+				ft_memcpy(node->next, node, sizeof(t_files) - 8);
+				ft_memcpy(node, dopspace, sizeof(t_files) - 8);
 			}
+			//doptmp = doptmp->next;
 			node = node->next;
 		}
 		cn++;
