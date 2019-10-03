@@ -36,6 +36,8 @@ typedef struct		s_files
 	unsigned int	user;
 	unsigned int	group;
 	int				time;
+	int 			num_blocks;
+	char			*name_to_link;
 	struct s_files	*next;
 }					t_files;
 

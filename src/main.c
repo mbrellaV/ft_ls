@@ -52,6 +52,7 @@ void	ft_show_dop(char *name, t_args *flags)
 {
 	t_files *node;
 
+	//printf("\n ddd: %s \n", name);
 	node = ft_show_dir(name, flags);
 	//printf(" ff:%d %s %s", ft_strcmp(node->name, "./"), node->name, "./");
 	if (flags->isactivated_flags[1] == 1)
@@ -60,12 +61,12 @@ void	ft_show_dop(char *name, t_args *flags)
 		{
 			if (node->permissions[0] == 'd' && (ft_strcmp(node->name, ".") != 0 && ft_strcmp(node->name, "..") != 0))
 			{
-				//printf("\n%s:\n", node->name);
-				if (flags->isactivated_flags[1] && node->name[0] == '.')
-					ft_show_dop(ft_strjoin(ft_strjoin(ft_strjoin(name, node->name), "/"), node->name), flags);
+				printf("\n%s\n", ft_strjoin(ft_strjoin(name, node->name), "/"));
+				//if (flags->isactivated_flags[2] && node->name[0] == '.')
+				//	ft_show_dop(ft_strjoin(ft_strjoin(ft_strjoin(name, node->name), "/"), node->name), flags);
 				if (node->name[0] != '.')
-					ft_show_dop(ft_strjoin(name, node->name), flags);
-				printf("\n%s:\n", ft_strjoin(name, node->name));
+					ft_show_dop(ft_strjoin(ft_strjoin(name, node->name), "/"), flags);
+				//printf("\n%s:\n", ft_strjoin(name, node->name));
 				//ft_show_dop(ft_strjoin(ft_strjoin(name, "/"), node->name), flags);
 			}
 			node = node->next;
@@ -88,7 +89,25 @@ int main (int argc, char **argv)
 		ft_show_dir(dir_name, flags);
 		exit(0);
 	}
-	if (argv[argc - 1][0] == '-')
+	while (i < argc && argv[i][0] == '-')
+	{
+		ft_parse_flags(argv[i], flags);
+		i++;
+	}
+	if (i == argc)
+		ft_show_dop(dir_name, flags);
+	while (argv[i])
+	{
+		ft_printf("\n%s:\n", dir_name);
+		if (argv[i][0] == '-')
+			ft_print_usage();
+		ft_show_dop(argv[i][ft_strlen(argv[i]) - 1] == '/' ? argv[i] : ft_strjoin(argv[i], "/"), flags);
+		i++;
+	}
+	exit(0);
+
+
+	/*if (argv[argc - 1][0] == '-')
 		ft_parse_flags(argv[argc - 1], flags);
 	else
 		dir_name = argv[argc - 1][ft_strlen(argv[argc - 1]) - 1] == '/' ? argv[argc - 1] : ft_strjoin(argv[argc - 1], "/");
@@ -102,7 +121,7 @@ int main (int argc, char **argv)
 	}
 	printf(" %s ", dir_name);
 	ft_show_dop(dir_name, flags);
-	exit(0);
+	exit(0);*/
 }
 
 t_files		*ft_show_dir(char *dir_name, t_args *flags)
@@ -121,6 +140,7 @@ t_files		*ft_show_dir(char *dir_name, t_args *flags)
 	dop = tmp;
 	while ((pDirent = readdir(pDir)) != NULL)
 	{
+		//printf(" %s ", tmp->name);
 		tmp->next = ft_create_file(pDirent->d_name, tmp->next, dir_name);
 		tmp = tmp->next;
 	}
