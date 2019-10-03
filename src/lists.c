@@ -24,7 +24,7 @@ t_files		*ft_create_file(char *file, t_files *node, char *full_name)
 	node->name = (char*)malloc(strlen(file));
 	ft_strlcat(node->name, file, strlen(file) + 1);
 	//printf(" str: %s ", full_name);
-	stat(full_name, buf);
+	stat(ft_strjoin(full_name, file), buf);
 	node->size = buf->st_size;
 	node->num_links = buf->st_nlink;
 	node->user = buf->st_uid;

@@ -52,19 +52,21 @@ void	ft_show_dop(char *name, t_args *flags)
 {
 	t_files *node;
 
-
-
 	node = ft_show_dir(name, flags);
 	//printf(" ff:%d %s %s", ft_strcmp(node->name, "./"), node->name, "./");
 	if (flags->isactivated_flags[1] == 1)
 	{
 		while (node)
 		{
-			if (node->permissions[0] == 'd' && ft_strcmp(node->name, ".") != 0 && ft_strcmp(node->name, "..") != 0)
+			if (node->permissions[0] == 'd' && (ft_strcmp(node->name, ".") != 0 && ft_strcmp(node->name, "..") != 0))
 			{
 				//printf("\n%s:\n", node->name);
+				if (flags->isactivated_flags[1] && node->name[0] == '.')
+					ft_show_dop(ft_strjoin(ft_strjoin(ft_strjoin(name, node->name), "/"), node->name), flags);
+				if (node->name[0] != '.')
+					ft_show_dop(ft_strjoin(name, node->name), flags);
 				printf("\n%s:\n", ft_strjoin(name, node->name));
-				ft_show_dop(ft_strjoin(ft_strjoin(name, "/"), node->name), flags);
+				//ft_show_dop(ft_strjoin(ft_strjoin(name, "/"), node->name), flags);
 			}
 			node = node->next;
 		}
@@ -98,6 +100,7 @@ int main (int argc, char **argv)
 			ft_print_usage();
 		i++;
 	}
+	printf(" %s ", dir_name);
 	ft_show_dop(dir_name, flags);
 	exit(0);
 }

@@ -49,6 +49,7 @@ void	ft_sort_files(t_files *node, t_args *flags)
 				ft_memcpy(node->next, node, sizeof(t_files) - 8);
 				ft_memcpy(node, dopspace, sizeof(t_files) - 8);
 			}
+			ft_bzero(dopspace, sizeof(t_files) - 8);
 			//doptmp = doptmp->next;
 			node = node->next;
 		}
