@@ -32,6 +32,8 @@ void	ft_print_dop_inf(t_files *node, t_args *flags)
 			//ft_printf(" -> %s", node->name_to_link);
 		node = node->next;
 	}
+	ft_memdel((void**)&dop);
+	ft_memdel((void**)&dop1);
 }
 
 /*void	ft_print_dop_inf(t_files *node, t_args *flags)
@@ -63,11 +65,12 @@ void	ft_display_files(t_files *node, t_args *flags)
 		{
 			//printf(" %s ", node->name);
 			if (node->name[0] == '.' && flags->isactivated_flags[2])
-				printf("%s\t\t", node->name);
+				printf("%s\n", node->name);
 			if (node->name[0] != '.')
-				printf("%s\t\t", node->name);
+				printf("%s\n", node->name);
 			node = node->next;
 		}
-		printf("%s", node->name);
+		if (node->name[0] != '.')
+			printf("%s", node->name);
 	}
 }

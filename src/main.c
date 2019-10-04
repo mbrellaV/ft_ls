@@ -20,7 +20,7 @@ void	ft_print_usage()
 
 void	ft_error(int error)
 {
-	printf("error");
+	printf("error: %d", error);
 	exit(0);
 }
 
@@ -51,28 +51,33 @@ int		ft_parse_flags(char *str, t_args *flags)
 void	ft_show_dop(char *name, t_args *flags)
 {
 	t_files *node;
+	char	*tmp;
+	char	*tmp1;
+	t_files	*dop;
 
-	//printf("\n ddd: %s \n", name);
 	node = ft_show_dir(name, flags);
-	//printf(" ff:%d %s %s", ft_strcmp(node->name, "./"), node->name, "./");
+	dop = node;
 	if (flags->isactivated_flags[1] == 1)
 	{
 		while (node)
 		{
 			if (node->permissions[0] == 'd' && (ft_strcmp(node->name, ".") != 0 && ft_strcmp(node->name, "..") != 0))
 			{
-				printf("\n%s\n", ft_strjoin(ft_strjoin(name, node->name), "/"));
-				//if (flags->isactivated_flags[2] && node->name[0] == '.')
-				//	ft_show_dop(ft_strjoin(ft_strjoin(ft_strjoin(name, node->name), "/"), node->name), flags);
-				if (node->name[0] != '.')
-					ft_show_dop(ft_strjoin(ft_strjoin(name, node->name), "/"), flags);
-				//printf("\n%s:\n", ft_strjoin(name, node->name));
-				//ft_show_dop(ft_strjoin(ft_strjoin(name, "/"), node->name), flags);
+				if (node->name[0] != '.' || (flags->isactivated_flags[2] && node->name[0] == '.'))
+				{
+					tmp = ft_strjoin(name, node->name);
+					printf("\n%s:\n", tmp);
+					tmp1 = tmp;
+					tmp = ft_strjoin(tmp, "/");
+					ft_strdel(&tmp1);
+					ft_show_dop(tmp, flags);
+					ft_strdel(&tmp);
+				}
 			}
 			node = node->next;
 		}
-		//printf("\n");
 	}
+	ft_destroy_list(dop);
 }
 
 int main (int argc, char **argv)
@@ -86,7 +91,7 @@ int main (int argc, char **argv)
 	flags = ft_create_args(flags);
 	if (argc == 1)
 	{
-		ft_show_dir(dir_name, flags);
+		ft_destroy_list(ft_show_dir(dir_name, flags));
 		exit(0);
 	}
 	while (i < argc && argv[i][0] == '-')

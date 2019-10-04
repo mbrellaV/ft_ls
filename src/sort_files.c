@@ -17,7 +17,6 @@ void	ft_sort_files(t_files *node, t_args *flags)
 	t_files	*tmp;
 	int		i;
 	int		cn;
-	t_files *doptmp;
 	void	*dopspace;
 
 	i = 0;
@@ -26,7 +25,6 @@ void	ft_sort_files(t_files *node, t_args *flags)
 	while (node)
 	{
 		i++;
-		//printf(" %s ", node->name);
 		node = node->next;
 	}
 	dopspace = (void*)malloc(sizeof(t_files));
@@ -49,10 +47,9 @@ void	ft_sort_files(t_files *node, t_args *flags)
 				ft_memcpy(node->next, node, sizeof(t_files) - 8);
 				ft_memcpy(node, dopspace, sizeof(t_files) - 8);
 			}
-			ft_bzero(dopspace, sizeof(t_files) - 8);
-			//doptmp = doptmp->next;
 			node = node->next;
 		}
 		cn++;
 	}
+	ft_memdel(&dopspace);
 }
