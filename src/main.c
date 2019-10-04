@@ -14,21 +14,23 @@
 
 void	ft_print_usage()
 {
-	printf("usage: ft_ls [flags] dir");
+	printf("usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n");
 	exit(0);
 }
 
-void	ft_error(int error)
+int		ft_error(int error)
 {
-	printf("error: %d", error);
-	exit(0);
+	if (error == 1)
+		perror("");
+	if (error == 3)
+		perror("ft_ls: ");
+	return (0);
 }
 
 int		ft_parse_flags(char *str, t_args *flags)
 {
 	int		i;
 
-	i = 0;
 	str++;
 	while (*str)
 	{
@@ -45,6 +47,7 @@ int		ft_parse_flags(char *str, t_args *flags)
 	while (i++ < COUNT_FLAGS)
 		if (flags->isactivated_flags[i] == 1)
 			return (1);
+	ft_print_usage();
 	return (0);
 }
 
@@ -55,7 +58,8 @@ void	ft_show_dop(char *name, t_args *flags)
 	char	*tmp1;
 	t_files	*dop;
 
-	node = ft_show_dir(name, flags);
+	if (!(node = ft_show_dir(name, flags)))
+		return ;
 	dop = node;
 	if (flags->isactivated_flags[1] == 1)
 	{
@@ -85,48 +89,39 @@ int main (int argc, char **argv)
 	char	*dir_name;
 	int		i;
 	t_args	*flags;
+	char	c;
 
-	i = 1;
+	i = 0;
+	c = '\0';
 	dir_name = "./";
 	flags = ft_create_args(flags);
 	if (argc == 1)
 	{
 		ft_destroy_list(ft_show_dir(dir_name, flags));
+		char *as = malloc(123123);
+		char *as1 = malloc(1344);
 		exit(0);
 	}
-	while (i < argc && argv[i][0] == '-')
-	{
+	while (++i < argc && argv[i][0] == '-')
 		ft_parse_flags(argv[i], flags);
-		i++;
-	}
 	if (i == argc)
 		ft_show_dop(dir_name, flags);
+	if (argc - i == 1)
+	{
+		ft_destroy_list(ft_show_dir(dir_name, flags));
+		exit(0);
+	}
 	while (argv[i])
 	{
-		ft_printf("\n%s:\n", dir_name);
-		if (argv[i][0] == '-')
-			ft_print_usage();
-		ft_show_dop(argv[i][ft_strlen(argv[i]) - 1] == '/' ? argv[i] : ft_strjoin(argv[i], "/"), flags);
+		if (opendir (argv[i]))
+		{
+			ft_printf("%c%s:\n", c, argv[i]);
+			ft_show_dop(argv[i][ft_strlen(argv[i]) - 1] == '/' ? argv[i] : ft_strjoin(argv[i], "/"), flags);
+			c = '\n';
+		}
 		i++;
 	}
 	exit(0);
-
-
-	/*if (argv[argc - 1][0] == '-')
-		ft_parse_flags(argv[argc - 1], flags);
-	else
-		dir_name = argv[argc - 1][ft_strlen(argv[argc - 1]) - 1] == '/' ? argv[argc - 1] : ft_strjoin(argv[argc - 1], "/");
-	while (i < argc - 1)
-	{
-		if (argv[i][0] == '-')
-			ft_parse_flags(argv[i], flags);
-		else
-			ft_print_usage();
-		i++;
-	}
-	printf(" %s ", dir_name);
-	ft_show_dop(dir_name, flags);
-	exit(0);*/
 }
 
 t_files		*ft_show_dir(char *dir_name, t_args *flags)
@@ -136,16 +131,17 @@ t_files		*ft_show_dir(char *dir_name, t_args *flags)
 	t_files *tmp;
 	t_files *dop;
 
-	//printf(" rofl: %s ", dir_name);
-	pDir = opendir (dir_name);
-	if (pDir == NULL)
-		ft_error(2);
+	if (!(pDir = opendir (dir_name)))
+	{
+		ft_printf("ft_ls: %s: ", ft_strsub(dir_name, 0, ft_strlen(dir_name) - 1));
+		ft_error(1);
+		return (NULL);
+	}
 	pDirent = readdir(pDir);
 	tmp = ft_create_file(pDirent->d_name, tmp, pDirent->d_name);
 	dop = tmp;
 	while ((pDirent = readdir(pDir)) != NULL)
 	{
-		//printf(" %s ", tmp->name);
 		tmp->next = ft_create_file(pDirent->d_name, tmp->next, dir_name);
 		tmp = tmp->next;
 	}

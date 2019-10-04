@@ -13,8 +13,10 @@
 #include <sys/stat.h>
 #include "../inc/ft_ls.h"
 
-void	dop_files(t_files *node, struct stat *buf)
+void	dop_files(t_files *node, struct stat *buf, char *tmp)
 {
+
+	//printf("     %s ", node->name_to_link);
 	if (S_ISDIR(buf->st_mode))
 		node->permissions[0] = 'd';
 	else if (S_ISLNK(buf->st_mode))
@@ -29,6 +31,11 @@ void	dop_files(t_files *node, struct stat *buf)
 		node->permissions[0] = 's';
 	else
 		node->permissions[0] = '-';
+	node->name_to_link = (char*)malloc(1024);
+	ft_bzero(node->name_to_link, sizeof(node->name_to_link));
+	if (node->permissions[0] == 'l')
+		if (readlink(tmp, node->name_to_link, 1023) < 0)
+			perror("readlink");
 	node->permissions[1] = (buf->st_mode & S_IRUSR) ? 'r' : '-';
 	node->permissions[2] = (buf->st_mode & S_IWUSR) ? 'w' : '-';
 	node->permissions[3] = (buf->st_mode & S_IXUSR) ? 'x' : '-';
@@ -85,17 +92,16 @@ t_files		*ft_create_file(char *file, t_files *node, char *full_name)
 	node->name = (char*)malloc(ft_strlen(file) + 1);
 	ft_strncpy(node->name, file, ft_strlen(file) + 1);
 	tmp = ft_strjoin(full_name, file);
-	lstat(tmp, buf);
-	ft_strdel(&tmp);
+	if ((lstat(tmp, buf)) == -1)
+		ft_error(3);
 	node->size = buf->st_size;
 	node->num_links = buf->st_nlink;
 	node->user = buf->st_uid;
 	node->group = buf->st_gid;
-	//node->type = S_ISDIR(buf->st_mode) ? 'd' : (S_ISLNK(buf->st_mode) ? 'l' : (S_ISCHR(buf->st_mode) ? 'l' : (S_ISBLK(buf->st_mode) ? 'l' : (S_ISFIFO(buf->st_mode) ? 'f' : (S_ISSOCK(buf->st_mode) ? 'l' : '-')))));
 	node->permissions = (char*)malloc(10);
 	node->time = buf->st_mtimespec.tv_sec;
 	node->num_blocks = buf->st_blocks;
-	dop_files(node, buf);
+	dop_files(node, buf, tmp);
 	node->islink = S_ISLNK(buf->st_mode) ? 1 : 0;
 	//node->name_to_link = (char*)malloc(node->size + 1);
 	//if (node->islink)
@@ -105,6 +111,7 @@ t_files		*ft_create_file(char *file, t_files *node, char *full_name)
 	//printf(" %d ", S_ISLNK(buf->st_mode) ? 1 : 0);
 	//node->name_to_link = buf->;
 	free(buf);
+	ft_strdel(&tmp);
 	return (node);
 }
 
@@ -118,6 +125,7 @@ void	ft_destroy_list(t_files *node)
 		tmp = node->next;
 		ft_strdel(&node->name);
 		ft_strdel(&node->permissions);
+		ft_strdel(&node->name_to_link);
 		free(node);
 		node = tmp;
 	}
@@ -129,7 +137,7 @@ t_args		*ft_create_args(t_args *node)
 
 	i = 0;
 	node =  (t_args*)malloc(sizeof(t_args));
-	node->flags = "rRalt";
+	node->flags = "rRalt1-";
 	while (i < COUNT_FLAGS)
 	{
 		node->isactivated_flags[i] = 0;

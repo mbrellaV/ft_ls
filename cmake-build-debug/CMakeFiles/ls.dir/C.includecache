@@ -34,9 +34,7 @@ stdlib.h
 unistd.h
 -
 
-/Users/mbrella/projects/ls/src/lists.c
-sys/stat.h
--
+/Users/mbrella/projects/ls/src/main.c
 ../inc/ft_ls.h
 /Users/mbrella/projects/ls/inc/ft_ls.h
 

@@ -84,6 +84,7 @@ size_t				ft_strlen(const char *s);
 int					ft_strnequ(char const *s1, char const *s2, size_t n);
 char				*ft_strsub(char const *s, unsigned int start, size_t len);
 int					ft_isalnum(int c);
+int					ft_nbrlen(int n);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 void				*ft_memalloc(size_t size);
 void				*ft_memmove(void *dst, const void *src, size_t len);

@@ -13,11 +13,21 @@
 #include "libft.h"
 #include <stdarg.h>
 
-void    ft_printf(const char *fmt, ...)
+static	void	ft_white(int i)
+{
+	int d;
+
+	d = 0;
+	while (d < i)
+	{
+		write(1," ",1);
+		d++;
+	}
+}
+
+void    		ft_printf(const char *fmt, ...)
 {
 	va_list args;
-	char	*type;
-	int		i;
 	va_start(args, fmt);
 
 	while (*fmt)
@@ -26,14 +36,22 @@ void    ft_printf(const char *fmt, ...)
 			ft_putchar(*fmt++);
 		if (*fmt == '%' && *(fmt + 1) == 'd')
 		{
-			i = va_arg(args, int);
-			ft_putnbr(i);
+			ft_putnbr(va_arg(args, int));
 			fmt += 2;
 		}
 		if (*fmt == '%' && *(fmt + 1) == 's')
 		{
-			type = va_arg(args, char*);
-			ft_putstr(type);
+			ft_putstr(va_arg(args, char*));
+			fmt += 2;
+		}
+		if (*fmt == '%' && *(fmt + 1) == 'p')
+		{
+			ft_white(va_arg(args, int));
+			fmt += 2;
+		}
+		if (*fmt == '%' && *(fmt + 1) == 'c')
+		{
+			ft_putchar(va_arg(args, int));
 			fmt += 2;
 		}
 	}
