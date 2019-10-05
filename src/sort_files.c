@@ -66,6 +66,30 @@ void	ft_sort_time(t_files *node, t_args *flags, void *dopspace, int i)
 	}
 }
 
+void	ft_sort_args(int i, char **argv, int argc)
+{
+	int		d;
+	int		c;
+	char	*dop;
+
+	d = i;
+	c = i;
+	while(d < argc)
+	{
+		while (c < argc - 1)
+		{
+			if (ft_strcmp(argv[c], argv[c + 1]) >= 0)
+			{
+				dop = argv[c];
+				argv[c] = argv[c + 1];
+				argv[c + 1] = dop;
+			}
+			c++;
+		}
+		d++;
+	}
+}
+
 void	ft_sort_files(t_files *node, t_args *flags)
 {
 	t_files	*tmp;

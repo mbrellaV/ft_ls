@@ -84,33 +84,20 @@ void	ft_show_dop(char *name, t_args *flags)
 	ft_destroy_list(dop);
 }
 
-int main (int argc, char **argv)
+void	ft_print_args(int i, char **argv, t_args *flags, int argc)
 {
-	char	*dir_name;
-	int		i;
-	t_args	*flags;
-	char	c;
+	char c;
 
-	i = 0;
 	c = '\0';
-	dir_name = "./";
-	flags = ft_create_args(flags);
-	if (argc == 1)
-	{
-		ft_destroy_list(ft_show_dir(dir_name, flags));
-		char *as = malloc(123123);
-		char *as1 = malloc(1344);
-		exit(0);
-	}
-	while (++i < argc && argv[i][0] == '-')
-		ft_parse_flags(argv[i], flags);
 	if (i == argc)
-		ft_show_dop(dir_name, flags);
-	if (argc - i == 1)
 	{
-		ft_destroy_list(ft_show_dir(dir_name, flags));
+		ft_destroy_list(ft_show_dir(argv[i], flags));
 		exit(0);
 	}
+	printf("d: %s ", argv[i]);
+	ft_sort_args(i, argv, argc);
+	printf("2: %s ", argv[i]);
+	printf("2: %s ", argv[i + 1]);
 	while (argv[i])
 	{
 		if (opendir (argv[i]))
@@ -119,8 +106,38 @@ int main (int argc, char **argv)
 			ft_show_dop(argv[i][ft_strlen(argv[i]) - 1] == '/' ? argv[i] : ft_strjoin(argv[i], "/"), flags);
 			c = '\n';
 		}
+		else
+			ft_error(1);
 		i++;
 	}
+	exit(0);
+}
+
+int main (int argc, char **argv)
+{
+	char	*dir_name;
+	int		i;
+	t_args	*flags;
+
+	i = 0;
+	dir_name = "./";
+	flags = ft_create_args(flags);
+	if (argc == 1)
+	{
+		ft_destroy_list(ft_show_dir(dir_name, flags));
+		exit(0);
+	}
+	while (++i < argc && argv[i][0] == '-')
+		ft_parse_flags(argv[i], flags);
+	if (i == argc)
+		ft_show_dop(dir_name, flags);
+	else if (argc - i == 1)
+	{
+		ft_show_dop(ft_strjoin(argv[i], "/"), flags);
+		exit(0);
+	}
+	else
+		ft_print_args(i, argv, flags, argc);
 	exit(0);
 }
 
@@ -130,6 +147,7 @@ t_files		*ft_show_dir(char *dir_name, t_args *flags)
 	DIR *pDir;
 	t_files *tmp;
 	t_files *dop;
+	int i = 0;
 
 	if (!(pDir = opendir (dir_name)))
 	{
@@ -142,6 +160,8 @@ t_files		*ft_show_dir(char *dir_name, t_args *flags)
 	dop = tmp;
 	while ((pDirent = readdir(pDir)) != NULL)
 	{
+		i++;
+		ft_printf(" %d ", i);
 		tmp->next = ft_create_file(pDirent->d_name, tmp->next, dir_name);
 		tmp = tmp->next;
 	}
