@@ -14,10 +14,11 @@
 #include "../libft/libft.h"
 #include "pwd.h"
 #include "grp.h"
+#include <sys/stat.h>
 #include "time.h"
 #include <sys/xattr.h>
 
-# define COUNT_FLAGS 7
+# define COUNT_FLAGS 6
 
 typedef struct		s_dop
 {
@@ -34,14 +35,14 @@ typedef struct		s_args
 typedef struct		s_files
 {
 	char			*name;
-	char			*permissions;
+	char			*rights;
 	char			type;
 	int				num_links;
 	int				size;
 	char			islink;
 	unsigned int	user;
 	unsigned int	group;
-	int				time;
+	time_t			time;
 	int 			num_blocks;
 	char			*name_to_link;
 	struct s_files	*next;

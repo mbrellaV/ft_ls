@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbrella <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/30 14:31:27 by mbrella           #+#    #+#             */
-/*   Updated: 2019/09/30 14:31:29 by mbrella          ###   ########.fr       */
+/*   Created: 2019/10/06 18:31:03 by mbrella           #+#    #+#             */
+/*   Updated: 2019/10/06 18:31:05 by mbrella          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	ft_print_usage()
 {
-	printf("usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n");
-	exit(0);
+	printf("usage: ft_ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n");
+	exit(1);
 }
 
 int		ft_error(int error)
@@ -24,30 +24,42 @@ int		ft_error(int error)
 		perror("");
 	if (error == 3)
 		perror("ft_ls: ");
+	if (error == 4)
+	{
+		ft_printf("ft_ls: illegal option -- ");
+	}
+
 	return (0);
 }
 
 int		ft_parse_flags(char *str, t_args *flags)
 {
 	int		i;
+	int		d;
 
 	str++;
 	while (*str)
 	{
 		i = 0;
+		d = 0;
 		while (i < COUNT_FLAGS)
 		{
-			if (*str == flags->flags[i])
+			if (*str == flags->flags[i] && ++d > 0)
 				flags->isactivated_flags[i] = 1;
 			i++;
 		}
+		if (d == 0)
+		{
+			ft_printf("ft_ls: illegal option -- %c\n", *str);
+			ft_print_usage();
+			return (0);
+		}
 		str++;
 	}
-	i = 0;
+	i = -1;
 	while (i++ < COUNT_FLAGS)
 		if (flags->isactivated_flags[i] == 1)
 			return (1);
-	ft_print_usage();
 	return (0);
 }
 
@@ -65,12 +77,12 @@ void	ft_show_dop(char *name, t_args *flags)
 	{
 		while (node)
 		{
-			if (node->permissions[0] == 'd' && (ft_strcmp(node->name, ".") != 0 && ft_strcmp(node->name, "..") != 0))
+			if (node->rights[0] == 'd' && (ft_strcmp(node->name, ".") != 0 && ft_strcmp(node->name, "..") != 0))
 			{
 				if (node->name[0] != '.' || (flags->isactivated_flags[2] && node->name[0] == '.'))
 				{
 					tmp = ft_strjoin(name, node->name);
-					printf("\n%s:\n", tmp);
+					ft_printf("\n%s:\n", tmp);
 					tmp1 = tmp;
 					tmp = ft_strjoin(tmp, "/");
 					ft_strdel(&tmp1);
@@ -87,27 +99,17 @@ void	ft_show_dop(char *name, t_args *flags)
 void	ft_print_args(int i, char **argv, t_args *flags, int argc)
 {
 	char c;
+	char	*tmp;
 
 	c = '\0';
-	if (i == argc)
-	{
-		ft_destroy_list(ft_show_dir(argv[i], flags));
-		exit(0);
-	}
-	printf("d: %s ", argv[i]);
 	ft_sort_args(i, argv, argc);
-	printf("2: %s ", argv[i]);
-	printf("2: %s ", argv[i + 1]);
 	while (argv[i])
 	{
-		if (opendir (argv[i]))
-		{
-			ft_printf("%c%s:\n", c, argv[i]);
-			ft_show_dop(argv[i][ft_strlen(argv[i]) - 1] == '/' ? argv[i] : ft_strjoin(argv[i], "/"), flags);
-			c = '\n';
-		}
-		else
-			ft_error(1);
+		ft_printf("%c%s:\n", c, argv[i]);
+		tmp = ft_strjoin(argv[i], "/");
+		ft_show_dop(argv[i][ft_strlen(argv[i]) - 1] == '/' ? argv[i] : tmp, flags);
+		ft_strdel(&tmp);
+		c = '\n';
 		i++;
 	}
 	exit(0);
@@ -128,16 +130,21 @@ int main (int argc, char **argv)
 		exit(0);
 	}
 	while (++i < argc && argv[i][0] == '-')
-		ft_parse_flags(argv[i], flags);
+		if (ft_parse_flags(argv[i], flags) == 0)
+		{
+			//i--;
+			break;
+		}
 	if (i == argc)
 		ft_show_dop(dir_name, flags);
-	else if (argc - i == 1)
+	else if (argc - i == 1 && (dir_name = ft_strjoin(argv[i], "/")))
 	{
-		ft_show_dop(ft_strjoin(argv[i], "/"), flags);
-		exit(0);
+		ft_show_dop(dir_name, flags);
+		ft_strdel(&dir_name);
 	}
 	else
 		ft_print_args(i, argv, flags, argc);
+
 	exit(0);
 }
 
@@ -147,27 +154,26 @@ t_files		*ft_show_dir(char *dir_name, t_args *flags)
 	DIR *pDir;
 	t_files *tmp;
 	t_files *dop;
-	int i = 0;
+	char	*doptmp;
 
 	if (!(pDir = opendir (dir_name)))
 	{
-		ft_printf("ft_ls: %s: ", ft_strsub(dir_name, 0, ft_strlen(dir_name) - 1));
+		doptmp = ft_strsub(dir_name, 0, ft_strlen(dir_name) - 1);
+		ft_printf("ft_ls: %s: ", doptmp);
+		ft_strdel(&doptmp);
 		ft_error(1);
 		return (NULL);
 	}
 	pDirent = readdir(pDir);
-	tmp = ft_create_file(pDirent->d_name, tmp, pDirent->d_name);
+	tmp = ft_create_file(pDirent->d_name, tmp, dir_name);
 	dop = tmp;
 	while ((pDirent = readdir(pDir)) != NULL)
 	{
-		i++;
-		ft_printf(" %d ", i);
 		tmp->next = ft_create_file(pDirent->d_name, tmp->next, dir_name);
 		tmp = tmp->next;
 	}
 	ft_sort_files(dop, flags);
 	ft_display_files(dop, flags);
-	printf("\n");
 	closedir (pDir);
 	return (dop);
 }

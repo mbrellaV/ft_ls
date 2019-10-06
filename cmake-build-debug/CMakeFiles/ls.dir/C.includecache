@@ -25,6 +25,8 @@ grp.h
 /Users/mbrella/projects/ls/inc/grp.h
 time.h
 /Users/mbrella/projects/ls/inc/time.h
+sys/xattr.h
+-
 
 /Users/mbrella/projects/ls/libft/libft.h
 string.h
@@ -34,7 +36,7 @@ stdlib.h
 unistd.h
 -
 
-/Users/mbrella/projects/ls/src/main.c
+/Users/mbrella/projects/ls/src/display_files.c
 ../inc/ft_ls.h
 /Users/mbrella/projects/ls/inc/ft_ls.h
 
