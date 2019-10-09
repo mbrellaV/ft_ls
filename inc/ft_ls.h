@@ -48,9 +48,9 @@ typedef struct		s_files
 	struct s_files	*next;
 }					t_files;
 
-void	ft_sort_args(int i, char **argv, int argc);
-int					ft_error(int error);
-void				ft_destroy_list(t_files *node);
+void				ft_sort_args(int i, char **argv, int argc);
+int		ft_error(int error);
+int		ft_destroy_list(t_files *node);
 t_files				*ft_show_dir(char	*dir_name, t_args *flags);
 t_args				*ft_create_args(t_args *node);
 t_files				*ft_node_push_forward(char *file, t_files *node);

@@ -24,21 +24,22 @@ void	ft_sort_norm(t_files *node, t_args *flags, void *dopspace, int i)
 {
 	t_files *tmp;
 	int cn;
+	int gg;
 
 	tmp = node;
 	cn = 0;
 	while (cn < i)
 	{
 		node = tmp;
+		gg = 0;
 		while (node->next)
 		{
-			//printf(" %s ", node->name);
-			if (flags->isactivated_flags[0] && ft_strcmp(node->name, node->next->name) < 0)
-				ft_swap_void(node, flags, dopspace);
-			if (flags->isactivated_flags[0] == 0 && ft_strcmp(node->name, node->next->name) >= 0)
+			if (ft_strcmp(node->name, node->next->name) >= 0 && ++gg > 0)
 				ft_swap_void(node, flags, dopspace);
 			node = node->next;
 		}
+		if (gg == 0)
+			break;
 		cn++;
 	}
 }
@@ -55,10 +56,7 @@ void	ft_sort_time(t_files *node, t_args *flags, void *dopspace, int i)
 		node = tmp;
 		while (node->next)
 		{
-			//printf(" %s ", node->name);
-			if (flags->isactivated_flags[0] && node->time > node->next->time)
-				ft_swap_void(node, flags, dopspace);
-			if (flags->isactivated_flags[0] == 0 && node->time < node->next->time)
+			if (node->time < node->next->time)
 				ft_swap_void(node, flags, dopspace);
 			node = node->next;
 		}
@@ -105,7 +103,8 @@ void	ft_sort_files(t_files *node, t_args *flags)
 		i++;
 		node = node->next;
 	}
-	dopspace = (void*)malloc(sizeof(t_files) - 8);
+	if (!(dopspace = (void*)malloc(sizeof(t_files) - 8)))
+		return ;
 	if (flags->isactivated_flags[4] == 1)
 		ft_sort_time(tmp, flags, dopspace, i);
 	else

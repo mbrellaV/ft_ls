@@ -38,9 +38,3 @@ int		ft_atoi(const char *str)
 	}
 	return ((int)(res * sign));
 }
-
-int main()
-{
-	printf("%d", ft_atoi("3222222222222222222222"));
-	printf("%d", atoi("3222222222222222222222"));
-}

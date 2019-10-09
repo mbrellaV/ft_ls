@@ -14,7 +14,7 @@
 
 void	ft_print_usage()
 {
-	printf("usage: ft_ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n");
+	printf("usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n");
 	exit(1);
 }
 
@@ -22,13 +22,17 @@ int		ft_error(int error)
 {
 	if (error == 1)
 		perror("");
+	if (error == 5)
+	{
+		ft_printf("malloc error");
+		return (0);
+	}
 	if (error == 3)
-		perror("ft_ls: ");
+		perror("ls: ");
 	if (error == 4)
 	{
-		ft_printf("ft_ls: illegal option -- ");
+		ft_printf("ls: illegal option -- ");
 	}
-
 	return (0);
 }
 
@@ -50,7 +54,7 @@ int		ft_parse_flags(char *str, t_args *flags)
 		}
 		if (d == 0)
 		{
-			ft_printf("ft_ls: illegal option -- %c\n", *str);
+			ft_printf("ls: illegal option -- %c\n", *str);
 			ft_print_usage();
 			return (0);
 		}
@@ -71,7 +75,7 @@ void	ft_show_dop(char *name, t_args *flags)
 	t_files	*dop;
 
 	if (!(node = ft_show_dir(name, flags)))
-		return ;
+		return (!ft_destroy_list(node) ? NULL : (void)0);
 	dop = node;
 	if (flags->isactivated_flags[1] == 1)
 	{
@@ -154,23 +158,26 @@ t_files		*ft_show_dir(char *dir_name, t_args *flags)
 	DIR *pDir;
 	t_files *tmp;
 	t_files *dop;
-	char	*doptmp;
 
+	if (dir_name == NULL)
+		return (ft_error(5) == 0 ? NULL : dop);
 	if (!(pDir = opendir (dir_name)))
 	{
-		doptmp = ft_strsub(dir_name, 0, ft_strlen(dir_name) - 1);
-		ft_printf("ft_ls: %s: ", doptmp);
-		ft_strdel(&doptmp);
+		ft_printf("ft_ls: %s: ", dir_name);
 		ft_error(1);
 		return (NULL);
 	}
 	pDirent = readdir(pDir);
-	tmp = ft_create_file(pDirent->d_name, tmp, dir_name);
-	dop = tmp;
+	if (!(tmp = ft_create_file(pDirent->d_name, tmp, dir_name)) || !(dop = tmp))
+		return (ft_error(5) == 0 ? dop : NULL);
+	//tmp = ft_create_file(pDirent->d_name, tmp, dir_name);
+	//dop = tmp;
 	while ((pDirent = readdir(pDir)) != NULL)
 	{
-		tmp->next = ft_create_file(pDirent->d_name, tmp->next, dir_name);
-		tmp = tmp->next;
+		if (!(tmp->next = ft_create_file(pDirent->d_name, tmp->next, dir_name)) || !(tmp = tmp->next))
+			return (ft_error(5) == 0 ? dop : NULL);
+		//tmp->next = ft_create_file(pDirent->d_name, tmp->next, dir_name);
+		//tmp = tmp->next;
 	}
 	ft_sort_files(dop, flags);
 	ft_display_files(dop, flags);

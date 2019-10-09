@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbrella <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/06 18:08:59 by mbrella           #+#    #+#             */
-/*   Updated: 2019/10/06 18:20:10 by mbrella          ###   ########.fr       */
+/*   Created: 2019/10/09 19:23:22 by mbrella           #+#    #+#             */
+/*   Updated: 2019/10/09 19:23:25 by mbrella          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int			do_acl(t_files *node, char *filename)
 {
 	ssize_t	xattr;
 
-	node->name_to_link = (char*)malloc(1024);
 	ft_bzero(node->name_to_link, sizeof(node->name_to_link));
 	if (node->rights[0] == 'l')
 		if (readlink(filename, node->name_to_link, 1023) < 0)
@@ -57,6 +56,8 @@ void		dop_files(t_files *node, struct stat *buf, char *tmp)
 	node->rights[7] = (buf->st_mode & S_IROTH) ? 'r' : '-';
 	node->rights[8] = (buf->st_mode & S_IWOTH) ? 'w' : '-';
 	node->rights[9] = (buf->st_mode & S_IXOTH) ? 'x' : '-';
+	node->num_links = buf->st_nlink;
+	node->islink = S_ISLNK(buf->st_mode) ? 1 : 0;
 }
 
 t_files		*ft_create_file(char *file, t_files *node, char *full_name)
@@ -64,31 +65,31 @@ t_files		*ft_create_file(char *file, t_files *node, char *full_name)
 	struct stat	*buf;
 	char		*tmp;
 
-	node = (t_files*)malloc(sizeof(t_files));
-	buf = (struct stat*)malloc(sizeof(struct stat));
-	node->next = NULL;
-	node->name = (char*)malloc(ft_strlen(file) + 1);
+	if (!(node = (t_files*)malloc(sizeof(t_files)))
+	|| !(buf = (struct stat*)malloc(sizeof(struct stat)))
+			|| !(node->name = (char*)malloc(ft_strlen(file) + 1))
+			|| !(tmp = ft_strjoin(full_name, file))
+			|| !(node->rights = (char*)malloc(12))
+			|| !(node->name_to_link = (char*)malloc(1024)))
+		return (ft_error(5) == 0 ? NULL : node->next);
 	ft_strncpy(node->name, file, ft_strlen(file) + 1);
-	tmp = ft_strjoin(full_name, file);
+	node->next = NULL;
 	if ((lstat(tmp, buf)) == -1)
 		ft_error(3);
 	node->size = buf->st_size;
-	node->num_links = buf->st_nlink;
 	node->user = buf->st_uid;
 	node->group = buf->st_gid;
-	node->rights = (char*)malloc(12);
-	node->rights[11] = '\0';
-	do_acl(node, tmp);
 	node->time = buf->st_mtimespec.tv_sec;
 	node->num_blocks = buf->st_blocks;
+	node->rights[11] = '\0';
 	dop_files(node, buf, tmp);
-	node->islink = S_ISLNK(buf->st_mode) ? 1 : 0;
+	do_acl(node, tmp);
 	free(buf);
 	ft_strdel(&tmp);
 	return (node);
 }
 
-void		ft_destroy_list(t_files *node)
+int		ft_destroy_list(t_files *node)
 {
 	t_files *tmp;
 
@@ -101,6 +102,7 @@ void		ft_destroy_list(t_files *node)
 		free(node);
 		node = tmp;
 	}
+	return (0);
 }
 
 t_args		*ft_create_args(t_args *node)

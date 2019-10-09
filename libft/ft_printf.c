@@ -12,6 +12,7 @@
 
 #include "libft.h"
 #include <stdarg.h>
+#include <stdio.h>
 
 static	void	ft_white(int i)
 {
@@ -25,6 +26,20 @@ static	void	ft_white(int i)
 	}
 }
 
+static void		ft_putstr_dop(char *str, int dop1, int dop2)
+{
+	int i;
+
+	i = 0;
+	while (*str && i <= dop2)
+	{
+		i++;
+		if (i >= dop1 && i <= dop2)
+			ft_putchar(*str);
+		str++;
+	}
+}
+
 void    		ft_printf(const char *fmt, ...)
 {
 	va_list args;
@@ -34,26 +49,28 @@ void    		ft_printf(const char *fmt, ...)
 	{
 		while (*fmt && *fmt != '%')
 			ft_putchar(*fmt++);
-		if (*fmt == '%' && *(fmt + 1) == 'd')
+		if (*fmt == '%')
 		{
-			ft_putnbr(va_arg(args, int));
+			if (*(fmt + 1) == 'd')
+				ft_putnbr(va_arg(args, int));
+			else if (*(fmt + 1) == 's')
+			{
+				if (ft_isdigit(*(fmt + 2)) && ft_isdigit(*(fmt + 5)))
+				{
+					ft_putstr_dop(va_arg(args, char*), ft_atoi(fmt + 2), ft_atoi(fmt + 5));
+					fmt += ft_nbrlen(ft_atoi(fmt + 2)) + ft_nbrlen(ft_atoi(fmt + 5)) + 2;
+				}
+				else
+				ft_putstr(va_arg(args, char*));
+
+			}
+			else if (*(fmt + 1) == 'p')
+				ft_white(va_arg(args, int));
+			else if (*(fmt + 1) == 'c')
+				ft_putchar(va_arg(args, int));
 			fmt += 2;
 		}
-		if (*fmt == '%' && *(fmt + 1) == 's')
-		{
-			ft_putstr(va_arg(args, char*));
-			fmt += 2;
-		}
-		if (*fmt == '%' && *(fmt + 1) == 'p')
-		{
-			ft_white(va_arg(args, int));
-			fmt += 2;
-		}
-		if (*fmt == '%' && *(fmt + 1) == 'c')
-		{
-			ft_putchar(va_arg(args, int));
-			fmt += 2;
-		}
+
 	}
 	va_end(args);
 }

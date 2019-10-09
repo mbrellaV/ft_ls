@@ -23,6 +23,8 @@ pwd.h
 /Users/mbrella/projects/ls/inc/pwd.h
 grp.h
 /Users/mbrella/projects/ls/inc/grp.h
+sys/stat.h
+-
 time.h
 /Users/mbrella/projects/ls/inc/time.h
 sys/xattr.h
@@ -37,6 +39,10 @@ unistd.h
 -
 
 /Users/mbrella/projects/ls/src/display_files.c
+../inc/ft_ls.h
+/Users/mbrella/projects/ls/inc/ft_ls.h
+
+/Users/mbrella/projects/ls/src/sort_files.c
 ../inc/ft_ls.h
 /Users/mbrella/projects/ls/inc/ft_ls.h
 
