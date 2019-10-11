@@ -86,6 +86,9 @@
 		<Unit filename="/Users/mbrella/projects/ls/src/display_files.c">
 			<Option target="ls"/>
 		</Unit>
+		<Unit filename="/Users/mbrella/projects/ls/src/dop_files.c">
+			<Option target="ls"/>
+		</Unit>
 		<Unit filename="/Users/mbrella/projects/ls/src/lists.c">
 			<Option target="ls"/>
 		</Unit>

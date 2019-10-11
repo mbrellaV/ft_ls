@@ -12,6 +12,7 @@
 
 #include "libft.h"
 #include <stdio.h>
+
 int		ft_atoi(const char *str)
 {
 	unsigned long long	res;
@@ -28,7 +29,6 @@ int		ft_atoi(const char *str)
 		str++;
 	while (*str && *str >= '0' && *str <= '9')
 	{
-		
 		res = res * 10 + (unsigned long long)(*str - '0');
 		str++;
 		if (res >= 9223372036854775808ULL && sign < 0)

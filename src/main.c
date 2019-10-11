@@ -5,38 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbrella <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/06 18:31:03 by mbrella           #+#    #+#             */
-/*   Updated: 2019/10/06 18:31:05 by mbrella          ###   ########.fr       */
+/*   Created: 2019/10/11 10:55:17 by mbrella           #+#    #+#             */
+/*   Updated: 2019/10/11 10:55:20 by mbrella          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
 
-void	ft_print_usage()
-{
-	printf("usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n");
-	exit(1);
-}
-
-int		ft_error(int error)
-{
-	if (error == 1)
-		perror("");
-	if (error == 5)
-	{
-		ft_printf("malloc error");
-		return (0);
-	}
-	if (error == 3)
-		perror("ls: ");
-	if (error == 4)
-	{
-		ft_printf("ls: illegal option -- ");
-	}
-	return (0);
-}
-
-int		ft_parse_flags(char *str, t_args *flags)
+int			ft_parse_flags(char *str, t_args *flags)
 {
 	int		i;
 	int		d;
@@ -53,11 +29,7 @@ int		ft_parse_flags(char *str, t_args *flags)
 			i++;
 		}
 		if (d == 0)
-		{
-			ft_printf("ls: illegal option -- %c\n", *str);
-			ft_print_usage();
-			return (0);
-		}
+			return (ft_error(*str));
 		str++;
 	}
 	i = -1;
@@ -67,7 +39,7 @@ int		ft_parse_flags(char *str, t_args *flags)
 	return (0);
 }
 
-void	ft_show_dop(char *name, t_args *flags)
+void		ft_show_dop(char *name, t_args *flags)
 {
 	t_files *node;
 	char	*tmp;
@@ -77,32 +49,28 @@ void	ft_show_dop(char *name, t_args *flags)
 	if (!(node = ft_show_dir(name, flags)))
 		return (!ft_destroy_list(node) ? NULL : (void)0);
 	dop = node;
-	if (flags->isactivated_flags[1] == 1)
+	while (node && flags->isactivated_flags[1] == 1)
 	{
-		while (node)
-		{
-			if (node->rights[0] == 'd' && (ft_strcmp(node->name, ".") != 0 && ft_strcmp(node->name, "..") != 0))
+		if (node->rights[0] == 'd' && (ft_strcmp(node->name, ".") != 0 &&
+			ft_strcmp(node->name, "..") != 0))
+			if (node->name[0] != '.' || flags->isactivated_flags[2])
 			{
-				if (node->name[0] != '.' || (flags->isactivated_flags[2] && node->name[0] == '.'))
-				{
-					tmp = ft_strjoin(name, node->name);
-					ft_printf("\n%s:\n", tmp);
-					tmp1 = tmp;
-					tmp = ft_strjoin(tmp, "/");
-					ft_strdel(&tmp1);
-					ft_show_dop(tmp, flags);
-					ft_strdel(&tmp);
-				}
+				tmp = ft_strjoin(name, node->name);
+				ft_printf("\n%s:\n", tmp);
+				tmp1 = tmp;
+				tmp = ft_strjoin(tmp, "/");
+				ft_strdel(&tmp1);
+				ft_show_dop(tmp, flags);
+				ft_strdel(&tmp);
 			}
-			node = node->next;
-		}
+		node = node->next;
 	}
 	ft_destroy_list(dop);
 }
 
-void	ft_print_args(int i, char **argv, t_args *flags, int argc)
+void		ft_print_args(int i, char **argv, t_args *flags, int argc)
 {
-	char c;
+	char	c;
 	char	*tmp;
 
 	c = '\0';
@@ -111,7 +79,8 @@ void	ft_print_args(int i, char **argv, t_args *flags, int argc)
 	{
 		ft_printf("%c%s:\n", c, argv[i]);
 		tmp = ft_strjoin(argv[i], "/");
-		ft_show_dop(argv[i][ft_strlen(argv[i]) - 1] == '/' ? argv[i] : tmp, flags);
+		ft_show_dop(argv[i][ft_strlen(argv[i]) - 1] == '/' ?
+				argv[i] : tmp, flags);
 		ft_strdel(&tmp);
 		c = '\n';
 		i++;
@@ -119,7 +88,7 @@ void	ft_print_args(int i, char **argv, t_args *flags, int argc)
 	exit(0);
 }
 
-int main (int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	char	*dir_name;
 	int		i;
@@ -135,10 +104,7 @@ int main (int argc, char **argv)
 	}
 	while (++i < argc && argv[i][0] == '-')
 		if (ft_parse_flags(argv[i], flags) == 0)
-		{
-			//i--;
-			break;
-		}
+			break ;
 	if (i == argc)
 		ft_show_dop(dir_name, flags);
 	else if (argc - i == 1 && (dir_name = ft_strjoin(argv[i], "/")))
@@ -148,39 +114,34 @@ int main (int argc, char **argv)
 	}
 	else
 		ft_print_args(i, argv, flags, argc);
-
 	exit(0);
 }
 
 t_files		*ft_show_dir(char *dir_name, t_args *flags)
 {
-	struct dirent *pDirent;
-	DIR *pDir;
-	t_files *tmp;
-	t_files *dop;
+	struct dirent	*pdirent;
+	DIR				*dire;
+	t_files			*tmp;
+	t_files			*dop;
 
 	if (dir_name == NULL)
 		return (ft_error(5) == 0 ? NULL : dop);
-	if (!(pDir = opendir (dir_name)))
+	if (!(dire = opendir(dir_name)))
 	{
 		ft_printf("ft_ls: %s: ", dir_name);
 		ft_error(1);
 		return (NULL);
 	}
-	pDirent = readdir(pDir);
-	if (!(tmp = ft_create_file(pDirent->d_name, tmp, dir_name)) || !(dop = tmp))
+	pdirent = readdir(dire);
+	if (!(tmp = ft_create_file(pdirent->d_name, tmp, dir_name)))
 		return (ft_error(5) == 0 ? dop : NULL);
-	//tmp = ft_create_file(pDirent->d_name, tmp, dir_name);
-	//dop = tmp;
-	while ((pDirent = readdir(pDir)) != NULL)
-	{
-		if (!(tmp->next = ft_create_file(pDirent->d_name, tmp->next, dir_name)) || !(tmp = tmp->next))
+	dop = tmp;
+	while ((pdirent = readdir(dire)) != NULL)
+		if (!(tmp->next = ft_create_file(pdirent->d_name, tmp->next, dir_name))
+		|| !(tmp = tmp->next))
 			return (ft_error(5) == 0 ? dop : NULL);
-		//tmp->next = ft_create_file(pDirent->d_name, tmp->next, dir_name);
-		//tmp = tmp->next;
-	}
 	ft_sort_files(dop, flags);
 	ft_display_files(dop, flags);
-	closedir (pDir);
+	closedir(dire);
 	return (dop);
 }

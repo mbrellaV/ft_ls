@@ -5,6 +5,10 @@ CMakeFiles/ls.dir/src/display_files.c.o
  /Users/mbrella/projects/ls/inc/ft_ls.h
  /Users/mbrella/projects/ls/libft/libft.h
  /Users/mbrella/projects/ls/src/display_files.c
+CMakeFiles/ls.dir/src/dop_files.c.o
+ /Users/mbrella/projects/ls/inc/ft_Ls.h
+ /Users/mbrella/projects/ls/libft/libft.h
+ /Users/mbrella/projects/ls/src/dop_files.c
 CMakeFiles/ls.dir/src/lists.c.o
  /Users/mbrella/projects/ls/inc/ft_ls.h
  /Users/mbrella/projects/ls/libft/libft.h

@@ -5,6 +5,10 @@ CMakeFiles/ls.dir/src/display_files.c.o: ../inc/ft_ls.h
 CMakeFiles/ls.dir/src/display_files.c.o: ../libft/libft.h
 CMakeFiles/ls.dir/src/display_files.c.o: ../src/display_files.c
 
+CMakeFiles/ls.dir/src/dop_files.c.o: ../inc/ft_Ls.h
+CMakeFiles/ls.dir/src/dop_files.c.o: ../libft/libft.h
+CMakeFiles/ls.dir/src/dop_files.c.o: ../src/dop_files.c
+
 CMakeFiles/ls.dir/src/lists.c.o: ../inc/ft_ls.h
 CMakeFiles/ls.dir/src/lists.c.o: ../libft/libft.h
 CMakeFiles/ls.dir/src/lists.c.o: ../src/lists.c

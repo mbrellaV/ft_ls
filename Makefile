@@ -12,7 +12,7 @@
 
 FLAGS=-Wall -Wextra -Werror
 
-SRC=src/display_files.c src/lists.c src/main.c src/sort_files.c
+SRC=src/display_files.c src/lists.c src/main.c src/sort_files.c src/dop_files.c
 
 HEADER=-I inc/ft_ls.h
 

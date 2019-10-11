@@ -6,6 +6,32 @@
 
 #IncludeRegexTransform: 
 
+/Users/mbrella/projects/ls/inc/ft_Ls.h
+stdio.h
+-
+dirent.h
+-
+stdlib.h
+-
+unistd.h
+-
+string.h
+-
+../libft/libft.h
+/Users/mbrella/projects/ls/libft/libft.h
+pwd.h
+/Users/mbrella/projects/ls/inc/pwd.h
+grp.h
+/Users/mbrella/projects/ls/inc/grp.h
+sys/stat.h
+-
+sys/types.h
+-
+time.h
+/Users/mbrella/projects/ls/inc/time.h
+sys/xattr.h
+-
+
 /Users/mbrella/projects/ls/inc/ft_ls.h
 stdio.h
 -
@@ -25,6 +51,8 @@ grp.h
 /Users/mbrella/projects/ls/inc/grp.h
 sys/stat.h
 -
+sys/types.h
+-
 time.h
 /Users/mbrella/projects/ls/inc/time.h
 sys/xattr.h
@@ -39,6 +67,18 @@ unistd.h
 -
 
 /Users/mbrella/projects/ls/src/display_files.c
+../inc/ft_ls.h
+/Users/mbrella/projects/ls/inc/ft_ls.h
+
+/Users/mbrella/projects/ls/src/dop_files.c
+../inc/ft_Ls.h
+/Users/mbrella/projects/ls/inc/ft_Ls.h
+
+/Users/mbrella/projects/ls/src/lists.c
+../inc/ft_ls.h
+/Users/mbrella/projects/ls/inc/ft_ls.h
+
+/Users/mbrella/projects/ls/src/main.c
 ../inc/ft_ls.h
 /Users/mbrella/projects/ls/inc/ft_ls.h
 

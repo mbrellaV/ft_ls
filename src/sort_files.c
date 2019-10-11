@@ -5,13 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbrella <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/30 16:05:23 by mbrella           #+#    #+#             */
-/*   Updated: 2019/09/30 16:05:27 by mbrella          ###   ########.fr       */
+/*   Created: 2019/10/11 10:57:24 by mbrella           #+#    #+#             */
+/*   Updated: 2019/10/11 10:57:26 by mbrella          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
-
 
 void	ft_swap_void(t_files *node, t_args *flags, void *dopspace)
 {
@@ -22,9 +21,9 @@ void	ft_swap_void(t_files *node, t_args *flags, void *dopspace)
 
 void	ft_sort_norm(t_files *node, t_args *flags, void *dopspace, int i)
 {
-	t_files *tmp;
-	int cn;
-	int gg;
+	t_files	*tmp;
+	int		cn;
+	int		gg;
 
 	tmp = node;
 	cn = 0;
@@ -39,15 +38,15 @@ void	ft_sort_norm(t_files *node, t_args *flags, void *dopspace, int i)
 			node = node->next;
 		}
 		if (gg == 0)
-			break;
+			break ;
 		cn++;
 	}
 }
 
 void	ft_sort_time(t_files *node, t_args *flags, void *dopspace, int i)
 {
-	t_files *tmp;
-	int cn;
+	t_files	*tmp;
+	int		cn;
 
 	cn = 0;
 	tmp = node;
@@ -72,8 +71,9 @@ void	ft_sort_args(int i, char **argv, int argc)
 
 	d = i;
 	c = i;
-	while(d < argc)
+	while (d < argc + 1)
 	{
+		c = i;
 		while (c < argc - 1)
 		{
 			if (ft_strcmp(argv[c], argv[c + 1]) >= 0)

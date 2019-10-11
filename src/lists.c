@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbrella <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/09 19:23:22 by mbrella           #+#    #+#             */
-/*   Updated: 2019/10/09 19:23:25 by mbrella          ###   ########.fr       */
+/*   Created: 2019/10/11 10:57:59 by mbrella           #+#    #+#             */
+/*   Updated: 2019/10/11 10:58:01 by mbrella          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
 
-int			do_acl(t_files *node, char *filename)
+int			do_acl(t_files *node, char *filename, struct stat *buf)
 {
 	ssize_t	xattr;
 
@@ -20,7 +20,7 @@ int			do_acl(t_files *node, char *filename)
 	if (node->rights[0] == 'l')
 		if (readlink(filename, node->name_to_link, 1023) < 0)
 			perror("readlink");
-	xattr = 0;
+	node->st_rdev = buf->st_rdev;
 	xattr = listxattr(filename, NULL, 0, XATTR_NOFOLLOW);
 	if (xattr < 0)
 		xattr = 0;
@@ -57,7 +57,6 @@ void		dop_files(t_files *node, struct stat *buf, char *tmp)
 	node->rights[8] = (buf->st_mode & S_IWOTH) ? 'w' : '-';
 	node->rights[9] = (buf->st_mode & S_IXOTH) ? 'x' : '-';
 	node->num_links = buf->st_nlink;
-	node->islink = S_ISLNK(buf->st_mode) ? 1 : 0;
 }
 
 t_files		*ft_create_file(char *file, t_files *node, char *full_name)
@@ -66,11 +65,11 @@ t_files		*ft_create_file(char *file, t_files *node, char *full_name)
 	char		*tmp;
 
 	if (!(node = (t_files*)malloc(sizeof(t_files)))
-	|| !(buf = (struct stat*)malloc(sizeof(struct stat)))
-			|| !(node->name = (char*)malloc(ft_strlen(file) + 1))
-			|| !(tmp = ft_strjoin(full_name, file))
-			|| !(node->rights = (char*)malloc(12))
-			|| !(node->name_to_link = (char*)malloc(1024)))
+		|| !(buf = (struct stat*)malloc(sizeof(struct stat)))
+		|| !(node->name = (char*)malloc(ft_strlen(file) + 1))
+		|| !(tmp = ft_strjoin(full_name, file))
+		|| !(node->rights = (char*)malloc(12))
+		|| !(node->name_to_link = (char*)malloc(1024)))
 		return (ft_error(5) == 0 ? NULL : node->next);
 	ft_strncpy(node->name, file, ft_strlen(file) + 1);
 	node->next = NULL;
@@ -83,13 +82,13 @@ t_files		*ft_create_file(char *file, t_files *node, char *full_name)
 	node->num_blocks = buf->st_blocks;
 	node->rights[11] = '\0';
 	dop_files(node, buf, tmp);
-	do_acl(node, tmp);
+	do_acl(node, tmp, buf);
 	free(buf);
 	ft_strdel(&tmp);
 	return (node);
 }
 
-int		ft_destroy_list(t_files *node)
+int			ft_destroy_list(t_files *node)
 {
 	t_files *tmp;
 
@@ -110,7 +109,8 @@ t_args		*ft_create_args(t_args *node)
 	int i;
 
 	i = 0;
-	node = (t_args*)malloc(sizeof(t_args));
+	if (!(node = (t_args*)malloc(sizeof(t_args))))
+		return (NULL);
 	node->flags = "rRalt1";
 	while (i < COUNT_FLAGS)
 	{

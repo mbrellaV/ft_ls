@@ -150,6 +150,33 @@ src/display_files.c.s:
 	$(MAKE) -f CMakeFiles/ls.dir/build.make CMakeFiles/ls.dir/src/display_files.c.s
 .PHONY : src/display_files.c.s
 
+src/dop_files.o: src/dop_files.c.o
+
+.PHONY : src/dop_files.o
+
+# target to build an object file
+src/dop_files.c.o:
+	$(MAKE) -f CMakeFiles/ls.dir/build.make CMakeFiles/ls.dir/src/dop_files.c.o
+.PHONY : src/dop_files.c.o
+
+src/dop_files.i: src/dop_files.c.i
+
+.PHONY : src/dop_files.i
+
+# target to preprocess a source file
+src/dop_files.c.i:
+	$(MAKE) -f CMakeFiles/ls.dir/build.make CMakeFiles/ls.dir/src/dop_files.c.i
+.PHONY : src/dop_files.c.i
+
+src/dop_files.s: src/dop_files.c.s
+
+.PHONY : src/dop_files.s
+
+# target to generate assembly for a file
+src/dop_files.c.s:
+	$(MAKE) -f CMakeFiles/ls.dir/build.make CMakeFiles/ls.dir/src/dop_files.c.s
+.PHONY : src/dop_files.c.s
+
 src/lists.o: src/lists.c.o
 
 .PHONY : src/lists.o
@@ -243,6 +270,9 @@ help:
 	@echo "... src/display_files.o"
 	@echo "... src/display_files.i"
 	@echo "... src/display_files.s"
+	@echo "... src/dop_files.o"
+	@echo "... src/dop_files.i"
+	@echo "... src/dop_files.s"
 	@echo "... src/lists.o"
 	@echo "... src/lists.i"
 	@echo "... src/lists.s"
