@@ -1,1 +1,0 @@
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc -g -Wl,-search_paths_first -Wl,-headerpad_max_install_names  CMakeFiles/ft_ls.dir/main.c.o CMakeFiles/ft_ls.dir/lists.c.o CMakeFiles/ft_ls.dir/sort_files.c.o CMakeFiles/ft_ls.dir/display_files.c.o  -o ft_ls ../libft/libft.a 
